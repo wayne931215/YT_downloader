@@ -25,7 +25,7 @@ def DownloadAsMP3(url, path):
         print(e)
     
 ### Download a whole playlist
-def DownloadPlaylist(url, path):
+def DownloadPlaylist(url, path, filetype):
     try:
         pl = Playlist(url)
         title = pl.title
@@ -35,20 +35,28 @@ def DownloadPlaylist(url, path):
         print(str(len(pl.videos)) + ' video(s) in the playlist')
         for video in pl.videos:
             print(video.title)
-            video.streams.get_highest_resolution().download(path)
+            if filetype == 1:
+                ys = video.streams.get_audio_only()
+                ys.download(path, mp3=True)
+            if filetype == 2:
+                video.streams.get_highest_resolution().download(path)
     except Exception as e:
         print(e)
             
     
 ### Download all video from a channel
-def DownloadAllVideo(url, path):
+def DownloadAllVideo(url, path, filetype):
     try:
         c = Channel(url)
         print(f'Downloading videos from channel: {c.channel_name}')
         print(str(len(c.videos)) + ' video(s) in the channel')
         for video in c.videos:
             print(video.title)
-            video.streams.get_highest_resolution().download(path)
+            if filetype == 1:
+                ys = video.streams.get_audio_only()
+                ys.download(path, mp3=True)
+            if filetype == 2:
+                video.streams.get_highest_resolution().download(path)
     except Exception as e:
         print(e)
         
@@ -74,10 +82,14 @@ elif instruction == 2:
     DownloadAsMP3(url, path)
 elif instruction == 3:
     url = input('Enter the url of the playlist:\n')
-    DownloadPlaylist(url, path)
+    filetype = 0
+    filetype = int(input('Download as mp3(enter 1) or mp4(enter 2)?'))
+    DownloadPlaylist(url, path, filetype)
 elif instruction == 4:
     url = input('Enter the url of the channel\'s homepage:\n')
-    DownloadAllVideo(url, path)
+    filetype = 0
+    filetype = int(input('Download as mp3(enter 1) or mp4(enter 2)?'))
+    DownloadAllVideo(url, path, filetype)
 
 
     
