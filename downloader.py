@@ -84,15 +84,17 @@ elif instruction == 3:
     url = input('Enter the url of the playlist:\n')
     filetype = 0
     filetype = int(input('Download as mp3(enter 1) or mp4(enter 2)?'))
-    if filetype != 1 or filetype != 2:
-        print('invalid input')
+    while filetype != 1 and filetype != 2:
+        print('invalid input, please enter again')
+        filetype = int(input('Download as mp3(enter 1) or mp4(enter 2)?'))
     DownloadPlaylist(url, path, filetype)
 elif instruction == 4:
     url = input('Enter the url of the channel\'s homepage:\n')
     filetype = 0
     filetype = int(input('Download as mp3(enter 1) or mp4(enter 2)?'))
-    if filetype != 1 or filetype != 2:
-        print('invalid input')
+    while filetype != 1 and filetype != 2:
+        print('invalid input, please enter again')
+        filetype = int(input('Download as mp3(enter 1) or mp4(enter 2)?'))
     DownloadAllVideo(url, path, filetype)
 
 
